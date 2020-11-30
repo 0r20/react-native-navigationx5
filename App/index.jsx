@@ -15,6 +15,7 @@ import {
   Search2,
   Splash,
 } from "./Screens.jsx";
+import { DrawerContent } from "./DrawerContent";
 
 const AuthStack = createStackNavigator();
 const ProfileStack = createStackNavigator();
@@ -47,13 +48,6 @@ const RootStackScreen = ({ token }) => (
   </RootStack.Navigator>
 );
 
-const DrowerScreen = () => (
-  <Drawer.Navigator initialRouteName="Profile">
-    <Drawer.Screen name="Home" component={TabsScreen} />
-    <Drawer.Screen name="Profile" component={ProfileStackScreen} />
-  </Drawer.Navigator>
-);
-
 const AuthStackScreen = () => (
   <AuthStack.Navigator>
     <AuthStack.Screen
@@ -67,6 +61,29 @@ const AuthStackScreen = () => (
       options={{ title: "Create Account" }}
     />
   </AuthStack.Navigator>
+);
+
+const DrowerScreen = () => (
+  <Drawer.Navigator
+    initialRouteName="Profile"
+    drawerContent={(props) => <DrawerContent {...props} />}
+  >
+    <Drawer.Screen name="Home" component={TabsScreen} />
+    <Drawer.Screen name="Profile" component={ProfileStackScreen} />
+  </Drawer.Navigator>
+);
+
+const ProfileStackScreen = () => (
+  <ProfileStack.Navigator>
+    <ProfileStack.Screen name="Profile" component={Profile} />
+  </ProfileStack.Navigator>
+);
+
+const TabsScreen = () => (
+  <Tabs.Navigator>
+    <Tabs.Screen name="Home" component={HomeStackScreen} />
+    <Tabs.Screen name="Search" component={SearchStackScreen} />
+  </Tabs.Navigator>
 );
 
 const HomeStackScreen = () => (
@@ -87,19 +104,6 @@ const SearchStackScreen = () => (
     <SearchStack.Screen name="Search" component={Search} />
     <SearchStack.Screen name="Search2" component={Search2} />
   </SearchStack.Navigator>
-);
-
-const ProfileStackScreen = () => (
-  <ProfileStack.Navigator>
-    <ProfileStack.Screen name="Profile" component={Profile} />
-  </ProfileStack.Navigator>
-);
-
-const TabsScreen = () => (
-  <Tabs.Navigator>
-    <Tabs.Screen name="Home" component={HomeStackScreen} />
-    <Tabs.Screen name="Search" component={SearchStackScreen} />
-  </Tabs.Navigator>
 );
 
 export default () => {
